@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #FCFAF5;
+  color: #2A241C;
+}
+
+::selection {
+  background-color: #D8BE8C;
+  color: #2A241C;
+}
+
+.eyebrow {
+  @apply font-body text-xs tracking-[0.22em] uppercase text-gold font-semibold;
+}
+
+.section-heading {
+  @apply font-display text-3xl md:text-4xl text-charcoal;
+}
+
+.divider-gold {
+  @apply h-px w-16 bg-gold;
+}
+
+.btn-primary {
+  @apply inline-flex items-center justify-center gap-2 bg-charcoal text-offwhite font-body text-sm tracking-wide px-7 py-3.5 rounded-full hover:bg-golddeep transition-colors duration-300;
+}
+
+.btn-secondary {
+  @apply inline-flex items-center justify-center gap-2 bg-transparent border border-charcoal/30 text-charcoal font-body text-sm tracking-wide px-7 py-3.5 rounded-full hover:border-gold hover:text-golddeep transition-colors duration-300;
+}
+
+.btn-gold {
+  @apply inline-flex items-center justify-center gap-2 bg-gold text-offwhite font-body text-sm tracking-wide px-7 py-3.5 rounded-full hover:bg-golddeep transition-colors duration-300;
+}
+
+.card {
+  @apply bg-offwhite border border-line rounded-xl2 shadow-softer;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid #B08D4F;
+  outline-offset: 2px;
+}
