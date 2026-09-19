@@ -49,7 +49,7 @@ export default async function ProductPage({ params }: { params: { slug: string }
         <div>
           <h1 className="font-display text-3xl md:text-4xl text-charcoal">{p.name}</h1>
           <div className="mt-3 flex items-center gap-3">
-            <Price amountGbp={p.price} className="font-display text-2xl text-charcoal" />
+            <Price amount={p.price} className="font-display text-2xl text-charcoal" />
             <span className={`font-body text-xs px-2.5 py-1 rounded-full ${inStock ? 'bg-gold/15 text-golddeep' : 'bg-charcoal/10 text-charcoal2/60'}`}>
               {inStock ? `In stock (${p.stock_quantity})` : 'Out of stock'}
             </span>

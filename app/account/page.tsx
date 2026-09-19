@@ -37,7 +37,7 @@ export default async function AccountDashboard() {
                     {b.availability_slots?.slot_date} at {b.availability_slots?.start_time?.slice(0, 5)}
                   </p>
                 </div>
-                <Price amountGbp={b.balance_amount} className="font-body text-sm text-charcoal2/70" />
+                <Price amount={b.balance_amount} className="font-body text-sm text-charcoal2/70" />
               </div>
             ))}
           </div>

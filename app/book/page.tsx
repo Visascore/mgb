@@ -126,7 +126,7 @@ export default function BookPage() {
         total_price: selectedService.price,
         deposit_amount: deposit,
         balance_amount: balance,
-        currency: 'GBP',
+        currency: 'NGN',
       });
 
       if (insertError) {
@@ -305,15 +305,15 @@ export default function BookPage() {
           </p>
           <p className="font-body text-sm py-1 flex justify-between border-t border-line mt-2 pt-2">
             <span className="text-charcoal2">Total</span>
-            <Price amountGbp={selectedService.price} />
+            <Price amount={selectedService.price} />
           </p>
           <p className="font-body text-sm py-1 flex justify-between">
             <span className="text-charcoal2">Deposit</span>
-            <Price amountGbp={deposit} className="text-golddeep font-medium" />
+            <Price amount={deposit} className="text-golddeep font-medium" />
           </p>
           <p className="font-body text-sm py-1 flex justify-between">
             <span className="text-charcoal2">Balance at appointment</span>
-            <Price amountGbp={balance} />
+            <Price amount={balance} />
           </p>
         </div>
 
@@ -382,7 +382,7 @@ export default function BookPage() {
                     <h3 className="font-display text-lg text-charcoal">{service.name}</h3>
                     <p className="font-body text-sm text-charcoal2/70 mt-1">{service.duration_minutes} mins</p>
                   </div>
-                  <Price amountGbp={service.price} className="font-display text-lg text-charcoal" />
+                  <Price amount={service.price} className="font-display text-lg text-charcoal" />
                 </div>
               </button>
             ))}
@@ -504,15 +504,15 @@ export default function BookPage() {
                   </div>
                   <div className="border-t border-line pt-3 flex justify-between">
                     <dt className="text-charcoal2">Total Price</dt>
-                    <dd className="text-charcoal"><Price amountGbp={selectedService.price} /></dd>
+                    <dd className="text-charcoal"><Price amount={selectedService.price} /></dd>
                   </div>
                   <div className="flex justify-between">
                     <dt className="text-charcoal2">Deposit</dt>
-                    <dd className="text-golddeep font-medium"><Price amountGbp={deposit} /></dd>
+                    <dd className="text-golddeep font-medium"><Price amount={deposit} /></dd>
                   </div>
                   <div className="flex justify-between">
                     <dt className="text-charcoal2">Balance at Appointment</dt>
-                    <dd className="text-charcoal"><Price amountGbp={balance} /></dd>
+                    <dd className="text-charcoal"><Price amount={balance} /></dd>
                   </div>
                 </dl>
               </div>

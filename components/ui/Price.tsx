@@ -3,7 +3,7 @@
 import { useCurrency } from '../providers/CurrencyProvider';
 import { formatMoney } from '@/lib/currency';
 
-export default function Price({ amountGbp, className = '' }: { amountGbp: number; className?: string }) {
+export default function Price({ amount, className = '' }: { amount: number; className?: string }) {
   const { currency } = useCurrency();
-  return <span className={className}>{formatMoney(amountGbp, currency)}</span>;
+  return <span className={className}>{formatMoney(amount, currency)}</span>;
 }

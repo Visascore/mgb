@@ -11,7 +11,7 @@ export default function ProductCard({ product }: { product: Product }) {
         <h3 className="font-body text-sm text-charcoal group-hover:text-golddeep transition-colors">
           {product.name}
         </h3>
-        <Price amountGbp={product.price} className="font-body text-sm text-charcoal2/70 shrink-0" />
+        <Price amount={product.price} className="font-body text-sm text-charcoal2/70 shrink-0" />
       </div>
     </Link>
   );

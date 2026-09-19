@@ -47,13 +47,13 @@ export default async function AccountOrdersPage() {
                     <span className="text-charcoal2">
                       {item.product_name} × {item.quantity}
                     </span>
-                    <Price amountGbp={item.unit_price * item.quantity} />
+                    <Price amount={item.unit_price * item.quantity} />
                   </div>
                 ))}
               </div>
               <div className="flex justify-between font-body text-sm mt-3 pt-3 border-t border-line">
                 <span className="text-charcoal2">Total</span>
-                <Price amountGbp={order.total_amount} className="font-medium text-charcoal" />
+                <Price amount={order.total_amount} className="font-medium text-charcoal" />
               </div>
             </div>
           ))}

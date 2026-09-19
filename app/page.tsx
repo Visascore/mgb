@@ -2,20 +2,19 @@ import Link from 'next/link';
 import Hero from '@/components/Hero';
 import FeatureStrip from '@/components/FeatureStrip';
 import CtaBanner from '@/components/CtaBanner';
-import ProductCard from '@/components/ProductCard';
 import ReviewCard from '@/components/ReviewCard';
 import ImageFrame from '@/components/ui/ImageFrame';
 import Price from '@/components/ui/Price';
 import { createClient } from '@/lib/supabase/server';
 import { getSiteContentServer } from '@/lib/get-content-server';
-import { Product, Review, Service } from '@/lib/types';
+import { Review, Service } from '@/lib/types';
 
 export const revalidate = 60;
 
 export default async function HomePage() {
   const supabase = createClient();
 
-  const [{ data: services }, { data: products }, { data: reviews }, { data: settingsRows }, content] = await Promise.all([
+  const [{ data: services }, { data: reviews }, { data: settingsRows }, content] = await Promise.all([
     supabase
       .from('services')
       .select('*')
@@ -23,7 +22,6 @@ export default async function HomePage() {
       .eq('is_archived', false)
       .order('price', { ascending: true })
       .limit(4),
-    supabase.from('products').select('*').eq('is_featured', true).eq('is_active', true).limit(3),
     supabase.from('reviews').select('*').eq('status', 'approved').order('review_date', { ascending: false }).limit(3),
     supabase.from('site_settings').select('key, value').in('key', ['hero_image', 'cta_image', 'promise_image']),
     getSiteContentServer(),
@@ -61,7 +59,7 @@ export default async function HomePage() {
                   <p className="font-body text-[11px] tracking-widest uppercase text-charcoal2/50">
                     {service.category ?? 'Treatment'}
                   </p>
-                  <Price amountGbp={service.price} className="font-display text-lg text-charcoal shrink-0" />
+                  <Price amount={service.price} className="font-display text-lg text-charcoal shrink-0" />
                 </div>
                 <div className="flex items-start justify-between gap-4">
                   <div>
@@ -70,7 +68,7 @@ export default async function HomePage() {
                       {service.description}
                     </p>
                     <p className="font-body text-xs text-charcoal2/50 mt-3">
-                      Deposit <Price amountGbp={(service.price * service.deposit_percentage) / 100} /> · {service.duration_minutes} min
+                      Deposit <Price amount={(service.price * service.deposit_percentage) / 100} /> · {service.duration_minutes} min
                     </p>
                   </div>
                   <Link href="/book" className="btn-primary !py-2 !px-4 text-xs shrink-0">
@@ -82,26 +80,6 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
-
-      {/* Shop teaser */}
-      {products && products.length > 0 && (
-        <section className="max-w-7xl mx-auto px-5 md:px-8 py-16 md:py-24">
-          <div className="flex items-end justify-between mb-8">
-            <div>
-              <p className="eyebrow mb-3">{content.home.shopEyebrow}</p>
-              <h2 className="section-heading">{content.home.shopHeading}</h2>
-            </div>
-            <Link href="/shop" className="font-body text-sm text-golddeep hover:text-charcoal">
-              View all
-            </Link>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-            {(products as Product[]).map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
-        </section>
-      )}
 
       {/* Our promise */}
       <section className="max-w-7xl mx-auto px-5 md:px-8 py-16 md:py-24">

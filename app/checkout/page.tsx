@@ -14,8 +14,9 @@ import { createStripeCheckoutSession } from '@/lib/stripe';
 import { trackEvent } from '@/components/AnalyticsTracker';
 import { useSiteContent } from '@/lib/use-site-content';
 
-const FREE_DELIVERY_THRESHOLD_GBP = 75;
-const DELIVERY_COST_GBP = 4.95;
+// Placeholder Naira values — adjust to your actual delivery pricing.
+const FREE_DELIVERY_THRESHOLD_NGN = 75000;
+const DELIVERY_COST_NGN = 2500;
 
 type PaymentMethods = { whatsapp: boolean; paystack: boolean; stripe: boolean };
 
@@ -62,7 +63,7 @@ export default function CheckoutPage() {
     })();
   }, []);
 
-  const deliveryCost = items.length === 0 || subtotalGbp >= FREE_DELIVERY_THRESHOLD_GBP ? 0 : DELIVERY_COST_GBP;
+  const deliveryCost = items.length === 0 || subtotalGbp >= FREE_DELIVERY_THRESHOLD_NGN ? 0 : DELIVERY_COST_NGN;
   const total = subtotalGbp + deliveryCost;
 
   const enabledMethods = (Object.keys(paymentMethods) as (keyof PaymentMethods)[]).filter((k) => paymentMethods[k]);
@@ -107,7 +108,7 @@ export default function CheckoutPage() {
         country: form.country,
         delivery_cost: deliveryCost,
         total_amount: total,
-        currency: 'GBP',
+        currency: 'NGN',
       });
 
       if (orderError) throw orderError;
@@ -273,16 +274,16 @@ export default function CheckoutPage() {
           {confirmedOrder.items.map((item) => (
             <div key={item.productId} className="flex justify-between font-body text-sm py-1">
               <span className="text-charcoal2">{item.name} × {item.quantity}</span>
-              <Price amountGbp={item.priceGbp * item.quantity} className="text-charcoal" />
+              <Price amount={item.priceGbp * item.quantity} className="text-charcoal" />
             </div>
           ))}
           <div className="flex justify-between font-body text-sm py-1 border-t border-line mt-2 pt-2">
             <span className="text-charcoal2">Delivery</span>
-            {confirmedOrder.deliveryCost === 0 ? <span className="text-charcoal">Free</span> : <Price amountGbp={confirmedOrder.deliveryCost} />}
+            {confirmedOrder.deliveryCost === 0 ? <span className="text-charcoal">Free</span> : <Price amount={confirmedOrder.deliveryCost} />}
           </div>
           <div className="flex justify-between font-display text-base text-charcoal pt-2">
             <span>Total</span>
-            <Price amountGbp={confirmedOrder.total} />
+            <Price amount={confirmedOrder.total} />
           </div>
         </div>
 
@@ -369,22 +370,22 @@ export default function CheckoutPage() {
                   <span className="text-charcoal2">
                     {item.name} × {item.quantity}
                   </span>
-                  <Price amountGbp={item.priceGbp * item.quantity} className="text-charcoal" />
+                  <Price amount={item.priceGbp * item.quantity} className="text-charcoal" />
                 </div>
               ))}
             </div>
             <div className="border-t border-line mt-4 pt-4 space-y-2">
               <div className="flex justify-between font-body text-sm">
                 <span className="text-charcoal2">Subtotal</span>
-                <Price amountGbp={subtotalGbp} />
+                <Price amount={subtotalGbp} />
               </div>
               <div className="flex justify-between font-body text-sm">
                 <span className="text-charcoal2">Delivery</span>
-                {deliveryCost === 0 ? <span>Free</span> : <Price amountGbp={deliveryCost} />}
+                {deliveryCost === 0 ? <span>Free</span> : <Price amount={deliveryCost} />}
               </div>
               <div className="flex justify-between font-display text-lg text-charcoal pt-2">
                 <span>Total</span>
-                <Price amountGbp={total} />
+                <Price amount={total} />
               </div>
             </div>
           </div>

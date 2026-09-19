@@ -2,14 +2,13 @@
 
 import { useEffect, useState } from 'react';
 import { createClient } from '@/lib/supabase/client';
-import { CURRENCIES } from '@/lib/currency';
 import { Product } from '@/lib/types';
 import ImageUploader from '@/components/admin/ImageUploader';
 import ImageFrame from '@/components/ui/ImageFrame';
 
 const EMPTY = {
   name: '', description: '', benefits: '', ingredients: '', usage_instructions: '',
-  price: '', currency: 'GBP', stock_quantity: '0', is_featured: false, is_active: true,
+  price: '', currency: 'NGN', stock_quantity: '0', is_featured: false, is_active: true,
   images: [] as string[],
 };
 
@@ -50,7 +49,7 @@ export default function AdminProductsPage() {
       ingredients: p.ingredients ?? '',
       usage_instructions: p.usage_instructions ?? '',
       price: String(p.price),
-      currency: p.currency,
+      currency: 'NGN',
       stock_quantity: String(p.stock_quantity),
       is_featured: p.is_featured,
       is_active: p.is_active,
@@ -107,11 +106,9 @@ export default function AdminProductsPage() {
           <textarea placeholder="Benefits" value={form.benefits} onChange={(e) => setForm((f) => ({ ...f, benefits: e.target.value }))} className="input min-h-[60px]" />
           <textarea placeholder="Ingredients (optional)" value={form.ingredients} onChange={(e) => setForm((f) => ({ ...f, ingredients: e.target.value }))} className="input min-h-[60px]" />
           <textarea placeholder="Usage Instructions" value={form.usage_instructions} onChange={(e) => setForm((f) => ({ ...f, usage_instructions: e.target.value }))} className="input min-h-[60px]" />
-          <div className="grid grid-cols-2 gap-3">
-            <input required type="number" step="0.01" placeholder="Price" value={form.price} onChange={(e) => setForm((f) => ({ ...f, price: e.target.value }))} className="input" />
-            <select value={form.currency} onChange={(e) => setForm((f) => ({ ...f, currency: e.target.value }))} className="input">
-              {CURRENCIES.map((c) => <option key={c.code} value={c.code}>{c.code}</option>)}
-            </select>
+          <div>
+            <label className="font-body text-xs text-charcoal2/60 mb-1 block">Price (₦ Naira)</label>
+            <input required type="number" step="0.01" placeholder="e.g. 15000" value={form.price} onChange={(e) => setForm((f) => ({ ...f, price: e.target.value }))} className="input" />
           </div>
           <input required type="number" placeholder="Stock Quantity" value={form.stock_quantity} onChange={(e) => setForm((f) => ({ ...f, stock_quantity: e.target.value }))} className="input" />
 
@@ -163,7 +160,7 @@ export default function AdminProductsPage() {
                     {!p.is_active && <span className="text-xs text-red-600 ml-2">inactive</span>}
                   </p>
                   <p className="font-body text-xs text-charcoal2/60 mt-1">
-                    {p.currency} {p.price} · {p.stock_quantity} in stock
+                    ₦{Number(p.price).toLocaleString('en-GB')} · {p.stock_quantity} in stock
                   </p>
                 </div>
                 <div className="flex gap-2 shrink-0">

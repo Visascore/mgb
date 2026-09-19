@@ -43,11 +43,11 @@ export default async function TreatmentsPage() {
                   </p>
                   <p className="font-body text-xs text-charcoal2/60 mt-3">
                     {service.duration_minutes} minutes &middot; {service.deposit_percentage}% deposit
-                    (<Price amountGbp={deposit} />) to book
+                    (<Price amount={deposit} />) to book
                   </p>
                 </div>
                 <div className="md:text-right shrink-0">
-                  <Price amountGbp={service.price} className="font-display text-2xl text-charcoal" />
+                  <Price amount={service.price} className="font-display text-2xl text-charcoal" />
                 </div>
               </div>
             );

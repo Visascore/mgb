@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import { createClient } from '@/lib/supabase/client';
-import { CURRENCIES } from '@/lib/currency';
 import { Service } from '@/lib/types';
 
 const EMPTY_FORM = {
@@ -10,7 +9,7 @@ const EMPTY_FORM = {
   category: '',
   description: '',
   price: '',
-  currency: 'GBP',
+  currency: 'NGN',
   deposit_percentage: '10',
   duration_minutes: '60',
 };
@@ -47,7 +46,7 @@ export default function AdminServicesPage() {
       category: (s as any).category ?? '',
       description: s.description ?? '',
       price: String(s.price),
-      currency: s.currency,
+      currency: 'NGN',
       deposit_percentage: String(s.deposit_percentage),
       duration_minutes: String(s.duration_minutes),
     });
@@ -109,13 +108,9 @@ export default function AdminServicesPage() {
           <input required placeholder="Name" value={form.name} onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))} className="input" />
           <input placeholder="Category (e.g. Body Contouring)" value={form.category} onChange={(e) => setForm((f) => ({ ...f, category: e.target.value }))} className="input" />
           <textarea placeholder="Description" value={form.description} onChange={(e) => setForm((f) => ({ ...f, description: e.target.value }))} className="input min-h-[80px]" />
-          <div className="grid grid-cols-2 gap-3">
-            <input required type="number" step="0.01" placeholder="Price" value={form.price} onChange={(e) => setForm((f) => ({ ...f, price: e.target.value }))} className="input" />
-            <select value={form.currency} onChange={(e) => setForm((f) => ({ ...f, currency: e.target.value }))} className="input">
-              {CURRENCIES.map((c) => (
-                <option key={c.code} value={c.code}>{c.code}</option>
-              ))}
-            </select>
+          <div>
+            <label className="font-body text-xs text-charcoal2/60 mb-1 block">Price (₦ Naira)</label>
+            <input required type="number" step="0.01" placeholder="e.g. 50000" value={form.price} onChange={(e) => setForm((f) => ({ ...f, price: e.target.value }))} className="input" />
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>
@@ -157,7 +152,7 @@ export default function AdminServicesPage() {
                       {!s.is_active && <span className="text-xs text-red-600 ml-2">(inactive)</span>}
                     </p>
                     <p className="font-body text-xs text-charcoal2/60 mt-1">
-                      {s.currency} {s.price} · {s.deposit_percentage}% deposit · {s.duration_minutes} mins
+                      ₦{Number(s.price).toLocaleString('en-GB')} · {s.deposit_percentage}% deposit · {s.duration_minutes} mins
                     </p>
                   </div>
                   <div className="flex gap-2 shrink-0">

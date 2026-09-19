@@ -25,17 +25,17 @@ export default function CartPage() {
           <>
             <div className="divide-y divide-line border-t border-b border-line">
               {items.map((item) => (
-                <div key={item.productId} className="py-6 flex items-center gap-5">
-                  <div className="w-20 shrink-0">
+                <div key={item.productId} className="py-6 flex flex-wrap sm:flex-nowrap items-center gap-4 sm:gap-5">
+                  <div className="w-16 sm:w-20 shrink-0">
                     <ImageFrame ratio="aspect-square" />
                   </div>
-                  <div className="flex-1">
+                  <div className="flex-1 min-w-[140px]">
                     <Link href={`/shop/${item.slug}`} className="font-display text-lg text-charcoal hover:text-golddeep">
                       {item.name}
                     </Link>
-                    <Price amountGbp={item.priceGbp} className="block font-body text-sm text-charcoal2/70 mt-1" />
+                    <Price amount={item.priceGbp} className="block font-body text-sm text-charcoal2/70 mt-1" />
                   </div>
-                  <div className="flex items-center border border-line rounded-full overflow-hidden">
+                  <div className="flex items-center border border-line rounded-full overflow-hidden shrink-0">
                     <button
                       onClick={() => updateQuantity(item.productId, item.quantity - 1)}
                       className="w-8 h-8 font-body text-charcoal hover:bg-beige"
@@ -52,11 +52,11 @@ export default function CartPage() {
                       +
                     </button>
                   </div>
-                  <Price amountGbp={item.priceGbp * item.quantity} className="font-body text-charcoal w-20 text-right" />
+                  <Price amount={item.priceGbp * item.quantity} className="font-body text-charcoal w-20 text-right shrink-0" />
                   <button
                     onClick={() => removeItem(item.productId)}
                     aria-label={`Remove ${item.name}`}
-                    className="text-charcoal2/50 hover:text-charcoal"
+                    className="text-charcoal2/50 hover:text-charcoal shrink-0"
                   >
                     ✕
                   </button>
@@ -70,7 +70,7 @@ export default function CartPage() {
               </Link>
               <div className="text-right">
                 <p className="font-body text-sm text-charcoal2/70">Subtotal</p>
-                <Price amountGbp={subtotalGbp} className="font-display text-2xl text-charcoal" />
+                <Price amount={subtotalGbp} className="font-display text-2xl text-charcoal" />
               </div>
             </div>
 
